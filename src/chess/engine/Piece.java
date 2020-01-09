@@ -30,6 +30,8 @@ public class Piece{
         this.y=y;
     }
     boolean move(int x,int y) {
+        if(isOccupied(pc,x,y))
+            return false;
         this.x = x;
         this.y = y;
         return true;
@@ -42,5 +44,17 @@ public class Piece{
     }
     PieceType type() {
         return this.pt;
+    }
+    /**
+     * vérifier si la case souhaitée est occupée déja par une autre piece.
+     * @param pc la couleur de la piece appelante.
+     * @param toX l'indice x destination.
+     * @param  toY lîndice y destination .
+     */
+    public  boolean isOccupied(PlayerColor pc,int toX,int toY){
+        if(board.get(toX).get(toY).color()==pc){
+            return true;
+        }
+        return  false;
     }
 }
