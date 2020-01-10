@@ -3,21 +3,20 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-import java.util.Vector;
-
 public class Piece{
     private int x;
     private int y;
     private boolean alive;
     private PlayerColor pc;
     private PieceType pt;
-    private Vector<Vector<Piece>> board;
+    private Board board;
 
-    public Piece( PieceType pt,PlayerColor pc, int x ,int y, Vector<Vector<Piece>> board) {
+    public Piece( PieceType pt,PlayerColor pc, int x ,int y, Board board) {
         this.pc=pc;
         this.pt = pt;
         this.x= x;
         this.y=y;
+        this.board = board;
     }
     int getX() {
         return x;
@@ -27,11 +26,11 @@ public class Piece{
     }
     void setPos(int x, int y) {
         this.x = x;
-        this.y=y;
+        this.y = y;
     }
     boolean move(int x,int y) {
-        if(isOccupied(pc,x,y))
-            return false;
+        /*if(isOccupied(pc,x,y))
+            return false;*/
         this.x = x;
         this.y = y;
         return true;
@@ -52,7 +51,7 @@ public class Piece{
      * @param  toY lîndice y destination .
      */
     public  boolean isOccupied(PlayerColor pc,int toX,int toY){
-        if(board.get(toX).get(toY).color()==pc){
+        if(board.get(toX,toY).color()==pc){
             return true;
         }
         return  false;

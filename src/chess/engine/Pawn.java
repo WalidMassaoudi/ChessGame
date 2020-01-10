@@ -3,13 +3,11 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-import java.util.Vector;
-
 public class Pawn extends Piece {
     private boolean isFirstMove;
     private int direction;//les pions noir se déplacent vers le bas mais les blancs se déplacent vers le haut.
 
-    public Pawn(PlayerColor pc, int x, int y, Vector<Vector<Piece>> board) {
+    public Pawn(PlayerColor pc, int x, int y, Board board) {
         super(PieceType.PAWN, pc, x, y, board);
         isFirstMove = true;
         if (pc == PlayerColor.BLACK) {
@@ -20,7 +18,7 @@ public class Pawn extends Piece {
     }
 @Override
     boolean move(int x, int y) {
-        if (getY() == y) {// avancer une case
+        if (getY() == y) {
             if (x - getX() == direction) {
                 if (isFirstMove) {
                     isFirstMove = false;

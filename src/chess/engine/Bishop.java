@@ -3,10 +3,8 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-import java.util.Vector;
-
 public class Bishop extends Piece{
-    public Bishop(PlayerColor pc, int x, int y, Vector<Vector<Piece>> board) {
+    public Bishop(PlayerColor pc, int x, int y, Board board) {
         super(PieceType.BISHOP, pc, x, y,board);
     }
 @Override

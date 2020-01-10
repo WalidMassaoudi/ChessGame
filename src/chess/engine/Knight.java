@@ -3,11 +3,9 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-import java.util.Vector;
-
 public class Knight extends Piece{
 
-    public Knight(PlayerColor pc, int x, int y,Vector<Vector<Piece>> board) {
+    public Knight(PlayerColor pc, int x, int y,Board board) {
         super(PieceType.KNIGHT, pc, x, y,board);
     }
     public boolean move(int x, int y) {

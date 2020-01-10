@@ -5,22 +5,17 @@ import chess.ChessView;
 import chess.PieceType;
 import chess.PlayerColor;
 
+
 import java.util.Vector;
 
 public class ChessGame implements ChessController{
     private ChessView view;
-    private Vector<Vector<Piece>>  board = new Vector<>(8);
+    private final Board board = new Board();
     /**
      * Permet de lancer la partie
      */
     private void init() {
 
-        for(int i = 0; i < 8; ++i) {
-            this.board.add(new Vector<>(8));
-            for (int j = 0; j < 8; j++) {
-            this.board.get(i).add(null);
-            }
-        }
        initFirstLine(PlayerColor.WHITE,0);
        initFirstLine(PlayerColor.BLACK,7);
         for (int i = 0; i < 8; i++) {
@@ -30,7 +25,7 @@ public class ChessGame implements ChessController{
     }
     private void addToBoard(Piece p) {
         view.putPiece(p.type(),p.color(),p.getX(),p.getY());
-        board.get(p.getX()).add(p.getY(),p);
+        board.add(p);
     }
     private void initFirstLine(PlayerColor color, int line){
 
@@ -57,12 +52,11 @@ public class ChessGame implements ChessController{
 
     @Override public boolean move(int fromX, int fromY, int toX, int toY) {
         try {
-        Piece p = board.get(fromX).get(fromY);
+        Piece p = board.get(fromX,fromY);
         if(p.move(toX,toY)) {
            // board.get(fromX).remove(fromY); remplacer par l'instruction suivante
-            board.get(fromX).setElementAt(null,fromY);
+            board.remove(toX,toY);
             view.removePiece(fromX, fromY);
-            //p.move(toX, toY); duplication déja tester dans le if
             addToBoard(p);
             return true;
         } else {

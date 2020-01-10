@@ -3,10 +3,8 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-import java.util.Vector;
-
 public class Queen extends Piece{
-    public Queen(PlayerColor pc, int x, int y, Vector<Vector<Piece>> board) {
+    public Queen(PlayerColor pc, int x, int y, Board board) {
         super(PieceType.QUEEN, pc, x, y,board);
     }
 @Override

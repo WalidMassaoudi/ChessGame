@@ -3,11 +3,9 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-import java.util.Vector;
-
 public class King extends Piece{
 
-    public King(PlayerColor pc, int x, int y, Vector<Vector<Piece>> board) {
+    public King(PlayerColor pc, int x, int y, Board board) {
         super(PieceType.KING, pc, x, y,board);
     }
 @Override
