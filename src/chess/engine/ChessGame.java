@@ -56,6 +56,8 @@ public class ChessGame implements ChessController{
         if(p.move(toX,toY)) {
            // board.get(fromX).remove(fromY); remplacer par l'instruction suivante
             board.remove(toX,toY);
+
+            board.remove(fromX,fromY);
             view.removePiece(fromX, fromY);
             addToBoard(p);
             return true;

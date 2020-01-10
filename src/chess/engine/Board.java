@@ -20,6 +20,7 @@ public class Board {
 
     void add(Piece p) {
         board[p.getX()][p.getY()] = p;
+        displayBoard();
     }
 
     Piece get(int x,int y) {
@@ -32,5 +33,19 @@ public class Board {
      */
     void remove(int x, int y) {
         board[x][y] = null;
+    }
+    void displayBoard() {
+        for (int i = board.length - 1; i >= 0; i--) {
+            for (int j = 0; j < board[0].length; j++) {
+                try {
+                    System.out.print(board[j][i].toString());
+                } catch(Exception e) {
+                    System.out.print(" ");
+                }
+                System.out.print("|");
+            }
+            System.out.println("");
+        }
+        System.out.println("");
     }
 }
