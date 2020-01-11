@@ -5,8 +5,8 @@ import chess.PlayerColor;
 
 public class King extends Piece{
 
-    public King(PlayerColor pc, int x, int y, Board board) {
-        super(PieceType.KING, pc, x, y,board);
+    public King(PlayerColor pc, int x, int y, ChessGame game) {
+        super(PieceType.KING, pc, x, y,game);
     }
 @Override
     boolean move(int x,int y) {

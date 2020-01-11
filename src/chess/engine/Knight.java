@@ -5,8 +5,8 @@ import chess.PlayerColor;
 
 public class Knight extends Piece{
 
-    public Knight(PlayerColor pc, int x, int y,Board board) {
-        super(PieceType.KNIGHT, pc, x, y,board);
+    public Knight(PlayerColor pc, int x, int y,ChessGame game) {
+        super(PieceType.KNIGHT, pc, x, y,game);
     }
     public boolean move(int x, int y) {
        if((Math.abs(getX() - x ) == 1 && Math.abs(getY() - y) == 2) ||
