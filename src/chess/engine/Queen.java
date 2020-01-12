@@ -15,4 +15,9 @@ public class Queen extends Piece{
                 return super.move(x, y);
         return false;
     }
+
+
+    public String toString() {
+        return "Q";
+    }
 }
