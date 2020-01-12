@@ -3,14 +3,15 @@ package chess.engine;
 import chess.PieceType;
 import chess.PlayerColor;
 
-public class Piece {
+public  class Piece {
     private int x;
     private int y;
     private boolean alive;
+    protected boolean isFirstMove=true;
+
     protected PlayerColor pc;
     protected PieceType pt;
     protected  ChessGame game;
-
     public Piece(PieceType pt, PlayerColor pc, int x, int y,ChessGame g) {
         game=g;
         this.pc = pc;
@@ -33,10 +34,9 @@ public class Piece {
     }
 
     boolean move(int x, int y) {
+
         if (game.board.isFriendAt(x, y,pc))
             return false;
-        /*if(!checkTheLine(getX(),getY(),x,y))
-            return false;*/
         this.x = x;
         this.y = y;
         return true;
@@ -54,66 +54,37 @@ public class Piece {
         return this.pt;
     }
     /**
-     * Checks for the line of sight of the move.
-     * @param
-     * @param
-     * @return
-
+     * méthode pour vérifier si le chemein est vide vers l'emplacement x,y
+     * il marche pas à corriger
+     *
      */
-    /*
-    protected boolean checkTheLine(int xTo,int yTo){
-        // Vertical
-        if (y == yTo) {
-            int one= (x - xTo < 0) ? 1: -1;
-            for (int row = x + one; row < xTo; row += one) {
-                if (game.board.isOccupied(row, y)) {
+    protected boolean cleanWayTo(int xTo,int yTo) {
+        //vertical
+        if (this.x == xTo) {
+            int direction ;
+                    if(getY() - yTo < 0)
+                        direction =1;
+                    else
+                        direction=-1;
+            for (int i = this.y + direction; i < yTo; i += direction) {
+                if (game.board.get(x,i)!=null){
                     return false;
                 }
             }
             return true;
         }
         // Horizontal
-        if (x == xTo) {
-            int one = (y - yTo < 0) ? 1: -1;
-            for (int col = y+ one; col < yTo; col += one) {
-                if (game.board.isOccupied(x, col)) {
+        if (this.y== yTo) {
+            int one = (getX() - xTo < 0) ? 1: -1;
+            for (int col = getX() + one; col < xTo; col += one) {
+                if (game.board.get(col,y)!=null) {
                     return false;
                 }
             }
             return true;
         }
-        // Diagonal
-        // Case 1 : Slope -1
-        // Case 2 : Slope 1
-        int xFrom=x;
-        int yFrom=y;
-        if (yFrom - yTo ==
-
-                xFrom - xTo) {
-
-            int one = (xFrom - xTo < 0) ? 1: -1;
-            for (int inc = one; Math.abs(inc) < Math.abs(xFrom - xTo); inc += one) {
-                if (game.board.isOccupied(xFrom + inc, yFrom + inc)) {
-                    return false;
-                }
-            }
-            return true;
-        } else if (yFrom - yTo * -1 ==
-                xFrom - yTo) {
-
-            int one = (xFrom - xTo < 0) ? 1: -1;
-            int negOne = one * -1;
-            for (int inc = one; Math.abs(inc) < Math.abs(xFrom - xTo); inc += one) {
-                if (game.board.isOccupied(xFrom + inc, yFrom + (inc * negOne))) {
-                    return false;
-                }
-            }
-            return true;
-        }
-
         return false;
     }
-*/
 
     public String toString() {
         if (pc == PlayerColor.WHITE) {

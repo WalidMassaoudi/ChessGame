@@ -65,7 +65,8 @@ public class Board {
     public boolean isOccupied(int x, int y) {
         return board[x][y] != null;
     }
-    void displayBoard() {
+        void displayBoard() {
+
         for (int i = board.length - 1; i >= 0; i--) {
             for (int j = 0; j < board[0].length; j++) {
                 try {
@@ -79,5 +80,8 @@ public class Board {
         }
 
         System.out.println("");
-    }
+
+
+            }
+
 }

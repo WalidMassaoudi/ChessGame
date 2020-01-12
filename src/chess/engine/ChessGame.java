@@ -11,7 +11,7 @@ import java.util.Vector;
 public class ChessGame implements ChessController{
     private ChessView view;
     public   Board board ;
-
+   static  boolean isWhiteTurn=true;
     /**
      * Permet de lancer la partie
      */
@@ -47,8 +47,16 @@ public class ChessGame implements ChessController{
     }
 
     @Override public boolean move(int fromX, int fromY, int toX, int toY) {
+
         try {
         Piece p = board.get(fromX,fromY);
+
+        //gestion de tour
+        if(p.color()==PlayerColor.BLACK && isWhiteTurn)
+            return false;
+        if(p.color()==PlayerColor.WHITE && !isWhiteTurn)
+            return false;
+
         if(p.move(toX,toY)) {
            if(p instanceof Pawn && ((Pawn)p).canPromote(toY)){
            //il manque d'afficher le message et faire la promotion
@@ -58,6 +66,12 @@ public class ChessGame implements ChessController{
             view.removePiece(fromX, fromY);
             updateView();//utilisé surtout pour Pawn prise en passant
             addToBoard(p);
+            //gestion de tour
+            if(p.color()==PlayerColor.WHITE && isWhiteTurn)
+                isWhiteTurn=false;
+            if(p.color()==PlayerColor.BLACK && !isWhiteTurn)
+                isWhiteTurn=true;
+
             return true;
         } else {
             return false;
@@ -69,6 +83,7 @@ public class ChessGame implements ChessController{
     }
 
     @Override public void newGame() {
+        isWhiteTurn =true;
         board.initBoard();
         initFirstLine(PlayerColor.WHITE,0);
         initFirstLine(PlayerColor.BLACK,7);
@@ -84,5 +99,8 @@ public class ChessGame implements ChessController{
                     view.removePiece(i,j);
             }
         }
+    }
+    static boolean getTurn(){
+        return isWhiteTurn;
     }
 }

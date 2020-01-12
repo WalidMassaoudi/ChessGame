@@ -4,7 +4,6 @@ import chess.PieceType;
 import chess.PlayerColor;
 
 public class Pawn extends Piece {
-    private boolean isFirstMove;
     private int direction;//les pions noir se déplacent vers le bas mais les blancs se déplacent vers le haut.
     public boolean isInPassing = false;
     public Pawn(PlayerColor pc, int x, int y,ChessGame game) {
@@ -20,6 +19,8 @@ public class Pawn extends Piece {
     boolean move(int x, int y) {
         if (getX() == x) {
             if (y - getY() == direction) {
+                if(game.board.isOccupied(x,y))
+                    return false;
                 if (isFirstMove)
                     isFirstMove = false;
                     return super.move(x, y);
@@ -43,10 +44,8 @@ public class Pawn extends Piece {
     }
         return false;
     }
-    /**
-     * Checks if the pawn can capture another pawn by en passant
-     * @param x location of the other pawn
-     * @return true if can be captured
+    /**fonction capture en passantChecks if the pawn can capture another pawn by en passant
+     *
      */
     private boolean captureInPassing( int x,int y) {
         Piece p = game.board.get(x,y);
@@ -56,6 +55,7 @@ public class Pawn extends Piece {
                     return true;
         return false;
     }
+
     public boolean canPromote(int yTo) {
         //pion noir attient le niveau bas de board
         if(pc == PlayerColor.BLACK)

@@ -12,9 +12,8 @@ public class Queen extends Piece{
         //la condition de move pour la pièce Queen et la combinaison entre le move de Bishop et Rook.
         if(y == getY() || x == getX()
                 || Math.abs(getX()- x) == Math.abs(getY() - y)){
-            return  super.move(x, y) ;
+            return super.move(x, y) ;
         }
-
         return false;
     }
 }

@@ -11,8 +11,9 @@ public class Rook extends Piece {
     @Override
     boolean move(int x,int y) {
         if (y == getY() || x == getX()) {
+            if(!isFirstMove)
+                this.isFirstMove=false;
             return  super.move(x, y) ;
-
         }
         return false;
     }
