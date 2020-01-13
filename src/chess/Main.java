@@ -12,7 +12,6 @@ public class Main {
         ChessController controller = new ChessGame();
         ChessView view = new GUIView(controller);
         controller.start(view);
-
     }
 
 }

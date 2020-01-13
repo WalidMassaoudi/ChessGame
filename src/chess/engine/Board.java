@@ -1,7 +1,10 @@
 package chess.engine;
 
 import chess.PlayerColor;
+<<<<<<< HEAD
 import chess.engine.Piece.*;
+=======
+>>>>>>> 33427ae5bdfba07d64ca454828ad681b5ee528d0
 
 public class Board {
     private Piece[][] board;
@@ -25,6 +28,13 @@ public class Board {
      */
     public Board(PlayerColor top_player) {
         this(new Piece[8][8], top_player);
+    }
+    void initBoard(){
+        for(int i=0;i<8;i++){
+            for(int j=0;j<8;j++){
+                board[i][j]=null;
+            }
+        }
     }
 
     void initBoard() {
@@ -68,7 +78,10 @@ public class Board {
     public void remove(int x, int y) {
         board[x][y] = null;
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 33427ae5bdfba07d64ca454828ad681b5ee528d0
     /**
      * vérifier si la case souhaitée est occupée déja par une autre piece.
      *
@@ -76,6 +89,7 @@ public class Board {
      * @param xTo l'indice x destination.
      * @param yTo l'indice y destination .
      */
+<<<<<<< HEAD
     public boolean isFriendAt(int xTo, int yTo, PlayerColor pc) {
         return (board[xTo][yTo] != null && board[xTo][yTo].color() == pc);
     }
@@ -87,6 +101,16 @@ public class Board {
     /**
      * Checks if piece is at a specificed location.
      *
+=======
+
+    public boolean isFriendAt(int xTo, int yTo, PlayerColor pc) {
+        return (board[xTo][yTo]!=null && board[xTo][yTo].color()==pc);
+    }
+    public boolean isEnemyAt(int xTo, int yTo, PlayerColor pc) {
+        return (board[xTo][yTo]!=null && board[xTo][yTo].color()!=pc);
+    } /**
+     * Checks if piece is at a specificed location.
+>>>>>>> 33427ae5bdfba07d64ca454828ad681b5ee528d0
      * @param x Row of the location.
      * @param y Col of the location.
      * @return Boolean of if theres a piece on location or not.
@@ -94,5 +118,26 @@ public class Board {
     public boolean isOccupied(int x, int y) {
         return board[x][y] != null;
     }
+<<<<<<< HEAD
+=======
+        void displayBoard() {
+
+        for (int i = board.length - 1; i >= 0; i--) {
+            for (int j = 0; j < board[0].length; j++) {
+                try {
+                    System.out.print(board[j][i].toString());
+                } catch(Exception e) {
+                    System.out.print(" ");
+                }
+                System.out.print("|");
+            }
+            System.out.println("");
+        }
+
+        System.out.println("");
+
+
+            }
+>>>>>>> 33427ae5bdfba07d64ca454828ad681b5ee528d0
 
 }
