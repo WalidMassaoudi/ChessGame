@@ -2,92 +2,71 @@ package chess.engine;
 
 import chess.ChessController;
 import chess.ChessView;
-import chess.PieceType;
 import chess.PlayerColor;
-
-
-import java.util.Vector;
+import chess.engine.Piece.*;
 
 public class ChessGame implements ChessController{
     private ChessView view;
-    private final Board board = new Board();
+    public Board board;
+    private PlayerColor current_player;
     /**
      * Permet de lancer la partie
      */
-    private void init() {
+    public ChessGame() {
+        board = new Board(PlayerColor.BLACK);
+    }
 
-       initFirstLine(PlayerColor.WHITE,0);
-       initFirstLine(PlayerColor.BLACK,7);
-        for (int i = 0; i < 8; i++) {
-            addToBoard(new Pawn(PlayerColor.WHITE,i,1,board));
-            addToBoard(new Pawn(PlayerColor.BLACK,i,6,board));
-        }
-    }
-    private void addToBoard(Piece p) {
-        view.putPiece(p.type(),p.color(),p.getX(),p.getY());
-        board.add(p);
-    }
-    private void initFirstLine(PlayerColor color, int line){
-
-        addToBoard(new Rook(  color, 0, line,board));
-        addToBoard(new Knight( color, 1, line,board));
-        addToBoard(new Bishop( color, 2, line,board));
-        if(color == PlayerColor.BLACK) {
-            addToBoard(new Queen(color, 3, line,board));
-            addToBoard(new King(color, 4, line,board));
-        } else {
-            addToBoard(new Queen(color, 4, line,board));
-            addToBoard(new King( color, 3, line,board));
-        }
-        addToBoard(new Bishop( color, 5, line,board));
-        addToBoard(new Knight(  color, 6, line,board));
-        addToBoard(new Rook(  color, 7, line,board));
-    }
 
     @Override public void start(ChessView view) {
         this.view = view;
         view.startView();
-        init();
+        current_player = PlayerColor.BLACK;
+
     }
 
     @Override public boolean move(int fromX, int fromY, int toX, int toY) {
-        try {
         Piece p = board.get(fromX,fromY);
-        if(p.move(toX,toY)) {
-           // board.get(fromX).remove(fromY); remplacer par l'instruction suivante
-            board.remove(toX,toY);
+        if(p == null || p.color() != current_player) {
+            return false;
+        }
 
+        if(p.move(fromX,fromY,toX,toY,board)) {
+            if (p instanceof Pawn && ((Pawn) p)
+                    .canPromote(toY)) { // TODO couleur (après tour joueur)
+                p = view.askUser("Promotion", "Choisir la piece ",
+                        new Rook(current_player), new Knight(current_player),
+                        new Queen(current_player), new Bishop(current_player));
+                board.add(p,toX,toY);
+            }
+            board.add(p,toX,toY);
             board.remove(fromX,fromY);
-            view.removePiece(fromX, fromY);
-            addToBoard(p);
+            updateView();//utilisé surtout pour Pawn prise en passant
+            next_turn();
             return true;
-        } else {
-            return false;
         }
-         }
-        catch(NullPointerException np) {
-            return false;
-        }
+        return false;
+
+    }
+    private void next_turn() {
+        current_player = current_player == PlayerColor.BLACK? PlayerColor.WHITE:PlayerColor.BLACK;
+        view.displayMessage(current_player == PlayerColor.BLACK? "Black" : "White");
+    }
+    @Override public void newGame() {
+        board.initBoard();
+        updateView();
+
     }
 
-    @Override public void newGame() {
-             init();
-    }
-    /*
-    public  void printBoard(){
-        for (int i = 0; i < 8; i++) {
-            System.out.println("[");
-            for (int j = 0; j < 8; j++) {
-                if(this.board.get(i).get(j)==null)
-                    System.out.println("0");
-                else {
-                    System.out.println("X");
+    public void updateView() {
+        for (int x = 0; x < 8; ++x) {
+            for (int y = 0; y < 8; ++y) {
+                Piece p = board.get(x, y);
+                if(p != null) {
+                    view.putPiece(p.type(), p.color(), x, y);
+                } else {
+                    view.removePiece(x,y);
                 }
             }
-            System.out.println("]\n");
         }
     }
-
-     */
-
 }

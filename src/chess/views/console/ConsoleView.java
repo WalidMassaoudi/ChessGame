@@ -23,9 +23,9 @@ public class ConsoleView extends BaseView<String> {
     public String getResource() {
       return value;
     }
-  };
+  }
 
-  public static DrawableResource<String> createResource(String value, PlayerColor color) {
+    public static DrawableResource<String> createResource(String value, PlayerColor color) {
     return new StringResource(value, color);
   }
 

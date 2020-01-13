@@ -32,7 +32,7 @@ public class GUIView extends BaseView<ImageIcon> {
     }
   }
 
-  public static DrawableResource<ImageIcon> createResource(BufferedImage image) throws IOException {
+  public static DrawableResource<ImageIcon> createResource(BufferedImage image) {
     return new PieceResource(image);
   }
 
